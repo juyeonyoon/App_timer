@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
                 b1.text = "정지"
 
-                timer = object : CountDownTimer((np1.value * 60000 + np2.value * 1000).toLong(), 1000) {
+                timer = object : CountDownTimer((np1.value * 60000 + np2.value * 1000 + 1000).toLong(), 1000) {
 
                         override fun onTick(millisUntilFinished: Long) {
 
@@ -54,6 +54,7 @@ class MainActivity : AppCompatActivity() {
                             }
 
                             np2.value = (millisUntilFinished / 1000).toInt() - np1.value * 60
+
                         }
 
                         override fun onFinish() {
@@ -72,8 +73,9 @@ class MainActivity : AppCompatActivity() {
 
         b2.setOnClickListener() {
             b1.text = "시작"
-            np1.value = n1
-            np2.value = n2
+            np1.value = 0
+            np2.value = 0
+            timer.cancel()
         }
     }
 }
