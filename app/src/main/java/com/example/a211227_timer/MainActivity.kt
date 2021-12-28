@@ -17,9 +17,6 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var timer : CountDownTimer
 
-    var n1 = 0
-    var n2 = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,22 +36,38 @@ class MainActivity : AppCompatActivity() {
 
             if(b1.text == "시작") {
 
-                n1 = np1.value
-                n2 = np2.value
+                np2.value += 1
 
                 b1.text = "정지"
+
+                var delayCount = 1
+
+                /*var wholeSec = np1.value * 60 + np2.value
+
+                timer = object : CountDownTimer((wholeSec * 1000).toLong(), 1000) {
+                    override fun onTick(millisUntilFinished: Long) {
+                            np1.value = millisUntilFinished.toInt() / 60000
+                            np2.value = (millisUntilFinished.toInt() % 60000) / 1000
+                    }*/
+
 
                 timer = object : CountDownTimer((np1.value * 60000 + np2.value * 1000 + 1000).toLong(), 1000) {
 
                         override fun onTick(millisUntilFinished: Long) {
 
-                            if (np1.value != 0 && np2.value == 0) {
-                                np1.value -= 1
-                                np2.value = 59
-                            }
+                            println(millisUntilFinished)
 
-                            np2.value = (millisUntilFinished / 1000).toInt() - np1.value * 60
+//                            if (delayCount > 0){
+//                                delayCount--
+//                            } else{
 
+                                if (np1.value != 0 && np2.value == 0) {
+                                    np1.value -= 1
+                                    np2.value = 59
+                                }else{
+                                    np2.value -= 1
+                                }
+//                           }
                         }
 
                         override fun onFinish() {
